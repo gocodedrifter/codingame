@@ -39,28 +39,29 @@ var morses = map[string]int{}
  * the standard input according to the problem statement.
  **/
 func toMorse(word string) (morse string) {
-	for i := 0; i < len(word); i++ {
+    for i := 0; i < len(word); i++ {
         morse += morsedict[rune(word[i])]
     }
-	return
+    
+    return
 }
 
 func getAllPossibleMorse(init int, L string, mem map[int]int) (result int) {
-	if init == len(L) {return 1}
+    if init == len(L) {return 1}
 
-	if _, ok := mem[init]; ok {
-		return mem[init]
-	}
+    if _, ok := mem[init]; ok {
+        return mem[init]
+    }
 	
-	for i := 1; i <= 80 && init + i <= len(L); i++ {
-		if x, ok := morses[string(L[init:init+i])]; ok {
-			result += x * getAllPossibleMorse(init + i, L, mem)
-		}
+    for i := 1; i <= 80 && init + i <= len(L); i++ {
+	if x, ok := morses[string(L[init:init+i])]; ok {
+		result += x * getAllPossibleMorse(init + i, L, mem)
 	}
+    }
 
-	mem[init] = result
+    mem[init] = result
 
-	return
+    return
 }
 
 func main() {
@@ -74,10 +75,11 @@ func main() {
         var W string
         fmt.Scan(&W)
 
-		morses[toMorse(W)]++
+	morses[toMorse(W)]++
     }
-	result := getAllPossibleMorse(0, L, map[int]int{})
+    
+    result := getAllPossibleMorse(0, L, map[int]int{})
 
-	fmt.Println(result)
+    fmt.Println(result)
 
 }
